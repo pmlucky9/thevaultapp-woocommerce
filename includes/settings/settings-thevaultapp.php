@@ -95,7 +95,7 @@ $settings = array(
 		'title'       => __( 'API Url', 'woocommerce-gateway-thevaultapp' ),
 		'type'        => 'text',
 		'description' => __( 'Get your API Url from VaultApp.', 'woocommerce-gateway-thevaultapp' ),
-		'default'     => '',
+		'default'     => 'https://staging.thevaultapp.com/api/buildrequest?isAjax=true',
 		'desc_tip'    => true,		
 	),
 	'api_key' => array(

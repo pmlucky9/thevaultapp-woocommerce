@@ -82,7 +82,24 @@ class WC_Gateway_TheVaultApp extends WC_Payment_Gateway {
 	 * @return array
 	 */
 	public function process_payment( $order_id ) {		
-		$order    = wc_get_order( $order_id );
+		global $woocommerce;
+		$order    = wc_get_order( $order_id );		
+		//$order = new WC_Order( $order_id );
+
+		// Mark as on-hold (we're awaiting the cheque)
+		$order->update_status('on-hold', __( 'Awaiting cheque payment', 'woocommerce' ));
+
+		// Reduce stock levels
+		$order->reduce_order_stock();
+
+		// Remove cart
+		$woocommerce->cart->empty_cart();
+
+		// Return thankyou redirect
+		return array(
+			'result' => 'success',
+			'redirect' => $this->get_return_url( $order )
+		);
 	}
 
 	/**
