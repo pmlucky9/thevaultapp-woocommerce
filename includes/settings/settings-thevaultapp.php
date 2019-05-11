@@ -100,7 +100,7 @@ $settings = array(
 	),
 	'api_key' => array(
 		'title'       => __( 'API Key', 'woocommerce-gateway-thevaultapp' ),
-		'type'        => 'file',
+		'type'        => 'text',
 		'description' => '',
 		'default'     => '',
 	),
