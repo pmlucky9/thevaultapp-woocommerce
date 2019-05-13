@@ -14,6 +14,8 @@ class WC_Gateway_TheVaultApp extends WC_Payment_Gateway {
 	 */
 	public function __construct() {
 		$this->id = 'thevaultapp';
+		$this->icon = 'https://www.thevaultapp.com/assets/static_pages_asset/img/logo.png';
+		//plugin_dir_url( __FILE__ ) . 'images/facebook.png';//
 		$this->has_fields         = false;
 		$this->supports[]         = 'refunds';
 		$this->method_title       = __( 'TheVaultApp Checkout', 'woocommerce-gateway-thevaultapp' );
