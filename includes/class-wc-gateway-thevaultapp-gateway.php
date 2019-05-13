@@ -83,9 +83,22 @@ class WC_Gateway_TheVaultApp extends WC_Payment_Gateway {
 	 */
 	public function process_payment( $order_id ) {		
 		global $woocommerce;
-		$order    = wc_get_order( $order_id );		
-		//$order = new WC_Order( $order_id );
+		
+		// Get an instance of the WC_Order object
+		$order = wc_get_order( $order_id );
 
+		$order_result = send_vault_order($order, $this->api_url, $this->api_key, $this->business_name);
+
+		var_dump($order_result);
+		return;
+		
+
+		if ($order_result['status'] == 'false')
+		{
+			wc_add_notice( __('Payment error:', 'woothemes') . $error_message, 'error' );
+			return;
+		}
+		
 		// Mark as on-hold (we're awaiting the cheque)
 		$order->update_status('on-hold', __( 'Awaiting cheque payment', 'woocommerce' ));
 

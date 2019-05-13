@@ -113,7 +113,7 @@ $settings = array(
 		'title'       => __( 'Verify Callback', 'woocommerce-gateway-thevaultapp' ),
 		'type'        => 'text',
 		'description' => __( '', 'woocommerce-gateway-thevaultapp' ),
-		'default'     => get_site_url() . 'thevaultapp/payment/vaultCallback',
+		'default'     => get_site_url() . '/thevaultapp/payment/vaultCallback',
 		'desc_tip'    => true,
 	),
 );
