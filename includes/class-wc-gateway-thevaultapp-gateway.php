@@ -183,6 +183,7 @@ class WC_Gateway_TheVaultApp extends WC_Payment_Gateway {
 
 			if ($order == false) {
 				wc_add_notice( __('Payment error:', 'woothemes') . 'Order not found', 'error' );
+				return;
 			}
 			
 			$status = strtolower(trim($obj['status']));
