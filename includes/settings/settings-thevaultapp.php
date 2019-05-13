@@ -104,7 +104,7 @@ $settings = array(
 		'description' => '',
 		'default'     => '',
 	),
-	'callbackurls' => array(
+	/*'callbackurls' => array(
 		'title'       => __( 'Callback URLs', 'woocommerce-gateway-thevaultapp' ),
 		'type'        => 'title',
 		'description' => '',
@@ -113,8 +113,14 @@ $settings = array(
 		'title'       => __( 'Verify Callback', 'woocommerce-gateway-thevaultapp' ),
 		'type'        => 'text',
 		'description' => __( '', 'woocommerce-gateway-thevaultapp' ),
-		'default'     => get_site_url() . '/thevaultapp/payment/vaultCallback',
+		'default'     => add_query_arg( 'wc-api', 'wc_stripe', trailingslashit( get_home_url() ) ),
 		'desc_tip'    => true,
+	),*/
+	'webhook'     => array(
+		'title'       => __( 'Callback URL', 'woocommerce-gateway-thevaultapp' ),
+		'type'        => 'title',
+		/* translators: webhook URL */
+		'description' => sprintf( __( 'You must add the following webhook endpoint <strong style="background-color:#ddd;">&nbsp;%s&nbsp;</strong> to your thevaultapp account settings. This will enable you to receive notifications on the charge statuses.', 'woocommerce-gateway-thevaultapp' ), add_query_arg( 'wc-api', 'wc_gateway_thevaultapp', trailingslashit( get_home_url() ) )),
 	),
 );
 

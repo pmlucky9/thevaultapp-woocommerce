@@ -51,7 +51,7 @@ class WC_Gateway_TheVaultApp extends WC_Payment_Gateway {
 		//add_filter( 'woocommerce_ajax_get_endpoint', array( $this, 'pass_return_args_to_ajax' ), 10, 2 );		
 
 		// Add callback functions		
-		add_action( 'woocommerce_api_wc_gateway_vault', array( $this, 'callback_handler' ) );
+		add_action( 'woocommerce_api_wc_gateway_thevaultapp', array( $this, 'callback_handler' ) );
 		
 	}
 
