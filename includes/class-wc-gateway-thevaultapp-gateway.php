@@ -158,7 +158,7 @@ class WC_Gateway_TheVaultApp extends WC_Payment_Gateway {
 	public function register_routes() {
 		register_rest_route('thevaultapp/v1', '/callback' ,
 		  array(
-			//'methods'             => WP_REST_Server::READABLE,
+			'methods'             => WP_REST_Server::READABLE,
 			'callback'            => array($this, 'callback_handler'),
 		  )); 
 	  }
@@ -168,16 +168,7 @@ class WC_Gateway_TheVaultApp extends WC_Payment_Gateway {
 	 * 
 	 * $param $request Request array
 	 */
-
-	 public function callback_handler() {
-		/*{
-			"status":"ok",
-			"result":{
-			  "id": "9ss023swowflwsow293023",
-			  "status":"Approved"
-			},
-			"code":1
-		  }*/		
+	 public function callback_handler() {	
 		try {
 			if ( empty( $_POST ) ) {
 				throw new Exception( esc_html__( 'Empty POST data.', 'woocommerce-gateway-paypal-express-checkout' ) );
@@ -190,7 +181,7 @@ class WC_Gateway_TheVaultApp extends WC_Payment_Gateway {
 			if ($status === 'approved') {
 				// Payment complete
 				$order->payment_complete();
-				
+
 				// Return thank you page redirect
 				return array(
 					'result' => 'success',

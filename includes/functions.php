@@ -12,32 +12,55 @@
  */
 function get_curl_data($url, $action_type, $params) 
 {
-    $url = "https://www.thevaultapp.com/api/buildrequest";
-    // get curl object.
-    $handle = curl_init(); 	
-            
-    // make parameters
-    $postData = $params;
+    try {
+        // get curl object.
+        $handle = curl_init(); 	
+                
+        // make parameters
+        $postData = $params;    
+        
+        if ($action_type == 'POST') {
+            $is_post = true;        
+        } else {
+            $is_post = false;
+        }
     
-    if ($action_type == 'POST') {
-        $is_post = true;        
-    } else {
-        $is_post = false;
+        
+        curl_setopt_array($handle,
+            array(
+                CURLOPT_URL => $url,
+                // Enable the post response.
+                CURLOPT_POST       => $is_post,
+                // The data to transfer with the response.
+                CURLOPT_POSTFIELDS => json_encode($postData),
+                CURLOPT_RETURNTRANSFER     => true,
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/xml',
+                    'Accept: application/json',
+                ),
+            )
+        );
+
+        // excute curl command
+        $data = curl_exec($handle); 
+          // Check the return value of curl_exec(), too
+        if ($data === false) {
+            throw new Exception(curl_error($handle), curl_errno($handle));
+        }
+
+        /* Process $content here */
+
+        // Close curl handle
+        curl_close($ch);
+
+    } catch(Exception $e) {
+
+        var_dump(sprintf(
+            'Curl failed with error #%d: %s',
+            $e->getCode(), $e->getMessage()));
+        exit(1);
+
     }
-	
-	curl_setopt_array($handle,
-		array(
-			CURLOPT_URL => $url,
-			// Enable the post response.
-			CURLOPT_POST       => $is_post,
-			// The data to transfer with the response.
-			CURLOPT_POSTFIELDS => $postData,
-			CURLOPT_RETURNTRANSFER     => true,
-		)
-    );
-    
-	// excute curl command
-    $data = curl_exec($handle); 
 
     // get curl status code
     $http_status = curl_getinfo($handle, CURLINFO_HTTP_CODE);
@@ -92,9 +115,6 @@ function send_vault_order($order, $url, $token, $store)
     );
 
     $result = get_curl_data($url, 'POST', $params);
-    var_dump($params);
-    var_dump($result);
-    exit(1);
 
     if ($result == NULL)
     {
