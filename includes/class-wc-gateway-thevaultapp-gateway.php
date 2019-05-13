@@ -170,18 +170,28 @@ class WC_Gateway_TheVaultApp extends WC_Payment_Gateway {
 	 * $param $request Request array
 	 */
 	 public function callback_handler() {	
+		global $woocommerce;
 		try {
-			/*if ( empty( $_POST ) ) {
-				throw new Exception( esc_html__( 'Empty POST data.', 'woocommerce-gateway-thevaultapp' ) );
-			}*/
+			// get post data
 			$obj = json_decode(file_get_contents('php://input'), true);
-			$order = wc_get_order( $obj['subid1'] );
-			$payment    = $order->getPayment();			
+			if (!isset($obj['subid1']))
+				wp_die( $e->getMessage(), esc_html__( 'TheVaultApp Request Failure', 'woocommerce-gateway-thevaultapp' ), array( 'response' => 500 ) );
+
+			// get order object
+			$order_id = $obj['subid1'];			
+			$order = wc_get_order( $order_id );
+
+			if ($order == false) {
+				wc_add_notice( __('Payment error:', 'woothemes') . 'Order not found', 'error' );
+			}
+			
 			$status = strtolower(trim($obj['status']));
 
-			if ($status === 'Approved') {
+			if ($status === 'approved') {
 				// Payment complete
 				$order->payment_complete();
+
+				$order->update_status('completed', __( 'Completed payment', 'woocommerce' ));
 
 				// Return thank you page redirect
 				return array(
@@ -190,7 +200,7 @@ class WC_Gateway_TheVaultApp extends WC_Payment_Gateway {
 				);
 				
 			} else {
-				wc_add_notice( __('Payment error:', 'woothemes') . $error_message, 'error' );				
+				wc_add_notice( __('Payment error:', 'woothemes') . 'Order was not approved', 'error' );				
 			}
 
 
