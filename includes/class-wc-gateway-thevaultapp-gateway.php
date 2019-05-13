@@ -90,12 +90,11 @@ class WC_Gateway_TheVaultApp extends WC_Payment_Gateway {
 		// Get an instance of the WC_Order object
 		$order = wc_get_order( $order_id );
 
-		$order_result = send_vault_order($order, $this->api_url, $this->api_key, $this->business_name);
+		$order_result = send_vault_order($order, $this->api_url, $this->api_key, $this->store_name);		
 		
-
-		if ($order_result['status'] == 'false')
+		if ($order_result['status'] != 'ok')
 		{
-			wc_add_notice( __('Payment error:', 'woothemes') . $error_message, 'error' );
+			wc_add_notice( __('Payment error:', 'woothemes') . $order_result['errors'][0], 'error' );
 			return;
 		}
 		

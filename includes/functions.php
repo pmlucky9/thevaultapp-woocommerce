@@ -42,17 +42,23 @@ function get_curl_data($url, $action_type, $params)
         );
 
         // excute curl command
-        $data = curl_exec($handle); 
+        $data = curl_exec($handle);         
           // Check the return value of curl_exec(), too
         if ($data === false) {
             throw new Exception(curl_error($handle), curl_errno($handle));
         }
 
         /* Process $content here */
+        $http_status = curl_getinfo($handle, CURLINFO_HTTP_CODE);
+        
+        if ($http_status != 200) {
+            $data = NULL;
+        } else {
+            $data = json_decode($data, true);
+        }
 
-        // Close curl handle
-        curl_close($ch);
-
+        // close curl instance
+        curl_close($handle);
     } catch(Exception $e) {
 
         var_dump(sprintf(
@@ -61,17 +67,6 @@ function get_curl_data($url, $action_type, $params)
         exit(1);
 
     }
-
-    // get curl status code
-    $http_status = curl_getinfo($handle, CURLINFO_HTTP_CODE);
-    
-  	if ($http_status != 200)
-	{
-		$data = NULL;
-	}
-
-    // close curl instance
-    curl_close($handle);
 
     //return curl result
     return $data;
@@ -119,8 +114,8 @@ function send_vault_order($order, $url, $token, $store)
     if ($result == NULL)
     {
         $result = Array(
-            'status' => 'false',
-            'message' => 'Can not connet server',
+            'status' => 'error',
+            'errors' => Array('Can not connet server'),
         );
     }
     
