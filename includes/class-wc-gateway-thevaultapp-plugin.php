@@ -200,9 +200,9 @@ class WC_Gateway_TheVaultApp_Plugin {
 	 *
 	 * @return array $domains Whitelisted domains for `wp_safe_redirect`
 	 */
-	public function whitelist_thevault_domains_for_redirect( $domains ) {
+	public function whitelist_thevaultapp_domains_for_redirect( $domains ) {
 		$domains[] = 'staging.thevaultapp.com';
-		$domains[] = 'thevaultapp.com';		
+		$domains[] = 'www.thevaultapp.com';		
 		return $domains;
 	}
 
