@@ -171,15 +171,15 @@ class WC_Gateway_TheVaultApp extends WC_Payment_Gateway {
 	 */
 	 public function callback_handler() {	
 		try {
-			if ( empty( $_POST ) ) {
-				throw new Exception( esc_html__( 'Empty POST data.', 'woocommerce-gateway-paypal-express-checkout' ) );
-			}
+			/*if ( empty( $_POST ) ) {
+				throw new Exception( esc_html__( 'Empty POST data.', 'woocommerce-gateway-thevaultapp' ) );
+			}*/
 			$obj = json_decode(file_get_contents('php://input'), true);
 			$order = wc_get_order( $obj['subid1'] );
 			$payment    = $order->getPayment();			
 			$status = strtolower(trim($obj['status']));
 
-			if ($status === 'approved') {
+			if ($status === 'Approved') {
 				// Payment complete
 				$order->payment_complete();
 
@@ -195,7 +195,7 @@ class WC_Gateway_TheVaultApp extends WC_Payment_Gateway {
 
 
 		} catch ( Exception $e ) {
-			wp_die( $e->getMessage(), esc_html__( 'PayPal IPN Request Failure', 'woocommerce-gateway-paypal-express-checkout' ), array( 'response' => 500 ) );
+			wp_die( $e->getMessage(), esc_html__( 'TheVaultApp Request Failure', 'woocommerce-gateway-thevaultapp' ), array( 'response' => 500 ) );
 		}
 	 }
 
