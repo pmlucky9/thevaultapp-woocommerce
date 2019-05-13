@@ -173,7 +173,7 @@ class WC_Gateway_TheVaultApp_Plugin {
 		require_once( $this->includes_path . 'class-wc-gateway-thevaultapp-settings.php' );
 		require_once( $this->includes_path . 'class-wc-gateway-thevaultapp-gateway-loader.php' );		
 		require_once( $this->includes_path . 'class-wc-gateway-thevaultapp-admin-handler.php' );
-		require_once( $this->includes_path . 'class-wc-gateway-thevaultapp-checkout-handler.php' );
+		require_once( $this->includes_path . 'class-wc-gateway-thevaultapp-checkout-handler.php' );		
 
 		$this->settings       = new WC_Gateway_TheVaultApp_Settings();
 		$this->gateway_loader = new WC_Gateway_TheVaultApp_Gateway_Loader();	

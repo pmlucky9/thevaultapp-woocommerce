@@ -34,8 +34,7 @@ class WC_Gateway_TheVaultApp extends WC_Payment_Gateway {
 		$this->api_key = $this->get_option( 'api_key' );
 
 		$this->debug                      = 'yes' === $this->get_option( 'debug', 'yes' );
-		$this->callback_url = $this->get_option( 'callback_url' );		
-		$this->use_thevaultapp                    = false;
+		$this->callback_url = $this->get_option( 'callback_url' );					
 
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 
@@ -49,7 +48,11 @@ class WC_Gateway_TheVaultApp extends WC_Payment_Gateway {
 			//add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		}
 
-		add_filter( 'woocommerce_ajax_get_endpoint', array( $this, 'pass_return_args_to_ajax' ), 10, 2 );
+		//add_filter( 'woocommerce_ajax_get_endpoint', array( $this, 'pass_return_args_to_ajax' ), 10, 2 );		
+
+		// Add callback functions		
+		add_action( 'woocommerce_api_wc_gateway_vault', array( $this, 'callback_handler' ) );
+		
 	}
 
 	/**
@@ -88,9 +91,6 @@ class WC_Gateway_TheVaultApp extends WC_Payment_Gateway {
 		$order = wc_get_order( $order_id );
 
 		$order_result = send_vault_order($order, $this->api_url, $this->api_key, $this->business_name);
-
-		var_dump($order_result);
-		return;
 		
 
 		if ($order_result['status'] == 'false')
@@ -152,5 +152,59 @@ class WC_Gateway_TheVaultApp extends WC_Payment_Gateway {
 		return 'yes' === $this->enabled;
 	}
 
+	/**
+	 * Register callback functions
+	 */
+	public function register_routes() {
+		register_rest_route('thevaultapp/v1', '/callback' ,
+		  array(
+			//'methods'             => WP_REST_Server::READABLE,
+			'callback'            => array($this, 'callback_handler'),
+		  )); 
+	  }
+
+	/**
+	 * Callback functions
+	 * 
+	 * $param $request Request array
+	 */
+
+	 public function callback_handler() {
+		/*{
+			"status":"ok",
+			"result":{
+			  "id": "9ss023swowflwsow293023",
+			  "status":"Approved"
+			},
+			"code":1
+		  }*/		
+		try {
+			if ( empty( $_POST ) ) {
+				throw new Exception( esc_html__( 'Empty POST data.', 'woocommerce-gateway-paypal-express-checkout' ) );
+			}
+			$obj = json_decode(file_get_contents('php://input'), true);
+			$order = wc_get_order( $obj['subid1'] );
+			$payment    = $order->getPayment();			
+			$status = strtolower(trim($obj['status']));
+
+			if ($status === 'approved') {
+				// Payment complete
+				$order->payment_complete();
+				
+				// Return thank you page redirect
+				return array(
+					'result' => 'success',
+					'redirect' => $this->get_return_url( $order )
+				);
+				
+			} else {
+				wc_add_notice( __('Payment error:', 'woothemes') . $error_message, 'error' );				
+			}
+
+
+		} catch ( Exception $e ) {
+			wp_die( $e->getMessage(), esc_html__( 'PayPal IPN Request Failure', 'woocommerce-gateway-paypal-express-checkout' ), array( 'response' => 500 ) );
+		}
+	 }
 
 }

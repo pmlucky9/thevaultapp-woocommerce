@@ -92,6 +92,9 @@ function send_vault_order($order, $url, $token, $store)
     );
 
     $result = get_curl_data($url, 'POST', $params);
+    var_dump($params);
+    var_dump($result);
+    exit(1);
 
     if ($result == NULL)
     {
