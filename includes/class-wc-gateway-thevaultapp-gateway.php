@@ -15,7 +15,7 @@ class WC_Gateway_TheVaultApp extends WC_Payment_Gateway {
 	public function __construct() {
 		$this->id = 'thevaultapp';
 		$this->icon = 'https://www.thevaultapp.com/assets/static_pages_asset/img/logo.png';
-		//plugin_dir_url( __FILE__ ) . 'images/facebook.png';//
+		
 		$this->has_fields         = false;
 		$this->supports[]         = 'refunds';
 		$this->method_title       = __( 'TheVaultApp Checkout', 'woocommerce-gateway-thevaultapp' );
@@ -41,14 +41,10 @@ class WC_Gateway_TheVaultApp extends WC_Payment_Gateway {
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 
 		// Change gateway name if session is active
-		if ( ! is_admin() ) {
-			//if ( wc_gateway_thevaultapp()->checkout->is_started_from_checkout_page() ) {
-				$this->title        = $this->get_option( 'title' );
-				$this->description  = $this->get_option( 'description' );
-			//}			
-		} else {
-			//add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-		}		
+		if ( ! is_admin() ) {			
+			$this->title        = $this->get_option( 'title' );
+			$this->description  = $this->get_option( 'description' );			
+		}
 
 		// Add callback functions		
 		add_action( 'woocommerce_api_wc_gateway_thevaultapp', array( $this, 'callback_handler' ) );
