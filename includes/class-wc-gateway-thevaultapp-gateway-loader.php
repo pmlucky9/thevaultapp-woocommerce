@@ -34,8 +34,6 @@ class WC_Gateway_TheVaultApp_Gateway_Loader {
 	/**
 	 * Checks whether gateway addons can be used.
 	 *
-	 * @since 1.2.0
-	 *
 	 * @return bool Returns true if gateway addons can be used
 	 */
 	public function can_use_addons() {

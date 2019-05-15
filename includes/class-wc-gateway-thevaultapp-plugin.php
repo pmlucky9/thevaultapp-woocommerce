@@ -1,6 +1,6 @@
 <?php
 /**
- * PayPal Checkout Plugin.
+ * TheValueApp Checkout Plugin.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -80,9 +80,9 @@ class WC_Gateway_TheVaultApp_Plugin {
 
 	
 	/**
-	 * Maybe run the plugin.
+	 * Start the plugin.
 	 */
-	public function maybe_run() {
+	public function start() {
 		register_activation_hook( $this->file, array( $this, 'activate' ) );
 
 		add_action( 'plugins_loaded', array( $this, 'bootstrap' ) );
@@ -216,8 +216,6 @@ class WC_Gateway_TheVaultApp_Plugin {
 
 		/**
 	 * Add relevant links to plugins page.
-	 *
-	 * @since 1.2.0
 	 *
 	 * @param array $links Plugin action links
 	 *

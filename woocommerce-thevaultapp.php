@@ -33,6 +33,6 @@ function wc_gateway_thevaultapp() {
 	return $plugin;
 }
 
-wc_gateway_thevaultapp()->maybe_run();
+wc_gateway_thevaultapp()->start();
 
 
