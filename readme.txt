@@ -11,7 +11,6 @@ Accept thevaultapp on your WooCommerce store.
 
 This is a TheVaultApp Payment Gateway for WooCommerce.
 
-
 == Installation ==
 
 = Minimum Requirements =
@@ -49,5 +48,4 @@ Please use this to inform us about bugs, or make contributions via PRs.
 
 = 1.0.0 - 2019-05-15 =
 * First relase for this plugin.
-
 

@@ -45,7 +45,7 @@ class WC_Gateway_TheVaultApp extends WC_Payment_Gateway {
 			//if ( wc_gateway_thevaultapp()->checkout->is_started_from_checkout_page() ) {
 				$this->title        = $this->get_option( 'title' );
 				$this->description  = $this->get_option( 'description' );
-			//}
+			//}			
 		} else {
 			//add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		}
@@ -112,6 +112,7 @@ class WC_Gateway_TheVaultApp extends WC_Payment_Gateway {
 		// Return thankyou redirect
 		return array(
 			'result' => 'success',
+			'data' => $order_result,
 			'redirect' => $this->get_return_url( $order )
 		);
 	}
@@ -196,12 +197,18 @@ class WC_Gateway_TheVaultApp extends WC_Payment_Gateway {
 
 				// Return thank you page redirect
 				return array(
-					'result' => 'success',
+					'result' => 'approved',
 					'redirect' => $this->get_return_url( $order )
 				);
 				
 			} else {
-				wc_add_notice( __('Payment error:', 'woothemes') . 'Order was not approved', 'error' );				
+				$order->update_status('cancelled', __( 'Cancelled payment', 'woocommerce' ));
+
+				// Return order page redirect
+				return array(
+					'result' => 'cancelled',
+					'redirect' => $this->get_return_url( $order )
+				);			
 			}
 
 
