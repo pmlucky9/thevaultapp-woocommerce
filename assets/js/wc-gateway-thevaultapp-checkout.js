@@ -171,11 +171,11 @@
                 },
                 success: function(res) {                    
                     if (res === 'completed') {
-                        show_complete_modal(paymentInfo);                        
+                        show_complete_modal(self);                        
                         timer = undefined;
                         return;
                     } else if (res === 'cancelled') {
-                        show_cancel_modal(paymentInfo);
+                        show_cancel_modal(self);
                         timer = undefined;
                         return;
                     }                    
