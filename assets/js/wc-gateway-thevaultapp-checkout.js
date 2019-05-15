@@ -220,10 +220,8 @@
 
         var header = "";
         var content = content_html;
-        var strSubmitFunc = "applyButtonFunc()";
-        var btnText = "Just do it!";
 
-        do_modal('idMyModal', header, content, strSubmitFunc, btnText);
+        do_modal('idMyModal', header, content);
 
         // Quick & dirty toggle to demonstrate modal toggle behavior
         $('.modal-toggle').on('click', function(e) {
@@ -235,7 +233,7 @@
 
     function show_complete_modal( result ) {
         var content_html = '<div id="thevaultapp_alert" class="thevaultapp-hide" style="display: block;">';
-        content_html += '<div style="font-size:30px">Almost Complete!</div>';
+        content_html += '<div style="font-size:30px">Congratulations!</div>';
         content_html += '<div style="font-size:18px;margin-bottom:20px;">';
         content_html += 'Your order is completed.<br>View your payment from within The Vault App.</div>';
         content_html += '<div style="font-size:15px">';
@@ -256,10 +254,8 @@
 
         var header = "";
         var content = content_html;
-        var strSubmitFunc = "applyButtonFunc()";
-        var btnText = "Just do it!";
 
-        do_modal('idMyModal', header, content, strSubmitFunc, btnText);
+        do_modal('idMyModal', header, content);
 
         // Quick & dirty toggle to demonstrate modal toggle behavior
         $('.modal-toggle').on('click', function(e) {
@@ -293,11 +289,9 @@
         content_html += '</div>';
 
         var header = "";
-        var content = content_html;
-        var strSubmitFunc = "applyButtonFunc()";
-        var btnText = "Just do it!";
+        var content = content_html;   
 
-        do_modal('idMyModal', header, content, strSubmitFunc, btnText);
+        do_modal('idMyModal', header, content);
 
         // Quick & dirty toggle to demonstrate modal toggle behavior
         $('.modal-toggle').on('click', function(e) {
@@ -307,7 +301,7 @@
         });
     } 
 
-    function do_modal(placementId, heading, formContent, strSubmitFunc, btnText)
+    function do_modal(placementId, heading, formContent)
     {
         var html =  '<div id="modalWindow" class="modal">';
         html += '<div class="modal-overlay modal-toggle"></div>';
