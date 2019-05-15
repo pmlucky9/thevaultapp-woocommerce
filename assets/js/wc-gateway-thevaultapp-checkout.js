@@ -170,11 +170,11 @@
                     order_id: self.data.data.subid1
                 },
                 success: function(res) {                    
-                    if (res === 'complete') {
+                    if (res === 'completed') {
                         show_complete_modal(paymentInfo);                        
                         timer = undefined;
                         return;
-                    } else if (res === 'canceled') {
+                    } else if (res === 'cancelled') {
                         show_cancel_modal(paymentInfo);
                         timer = undefined;
                         return;
