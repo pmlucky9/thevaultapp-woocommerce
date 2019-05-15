@@ -107,3 +107,10 @@
   margin-top: auto;
   padding: 25px 30px;
 }
+
+@media only screen and (max-width: 767px) {
+  .modal-wrapper {
+    width: 90%;
+    margin-left: -45%;
+  }
+}
