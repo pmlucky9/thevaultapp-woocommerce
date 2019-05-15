@@ -48,13 +48,13 @@ class WC_Gateway_TheVaultApp extends WC_Payment_Gateway {
 			//}			
 		} else {
 			//add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-		}
-
-		//add_filter( 'woocommerce_ajax_get_endpoint', array( $this, 'pass_return_args_to_ajax' ), 10, 2 );		
+		}		
 
 		// Add callback functions		
 		add_action( 'woocommerce_api_wc_gateway_thevaultapp', array( $this, 'callback_handler' ) );
-		
+
+		// Make billing phone number required
+		add_filter( 'woocommerce_billing_fields', array( $this, 'wps_add_filter_phone'), 10, 1 );
 	}
 
 	/**
@@ -215,6 +215,18 @@ class WC_Gateway_TheVaultApp extends WC_Payment_Gateway {
 		} catch ( Exception $e ) {
 			wp_die( $e->getMessage(), esc_html__( 'TheVaultApp Request Failure', 'woocommerce-gateway-thevaultapp' ), array( 'response' => 500 ) );
 		}
-	 }
+	}
+
+	/**
+	 *  Make billing phone number to required field
+	 * 
+	 * @param $address_fields
+	 * 
+	 * @return Object
+	 */	
+	public function wps_add_filter_phone( $address_fields ) {
+		$address_fields['billing_phone']['required'] = true;
+		return $address_fields;
+	}
 
 }
