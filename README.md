@@ -1,16 +1,15 @@
 ﻿# WooCommerce TheVaultApp Checkout Payment Gateway
+
+This is a TheVaultApp Payment Gateway for WooCommerce.
+
 Requires at least: 4.4
 Tested up to: 5.0.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-##  Description
-
-This is a TheVaultApp Payment Gateway for WooCommerce.
-
 ## Installation
 
-= Minimum Requirements =
+### Minimum Requirements
 
 * WordPress 4.4 or greater
 
