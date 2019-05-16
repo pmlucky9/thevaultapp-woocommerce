@@ -1,6 +1,4 @@
-﻿# WooCommerce TheVaultApp Checkout Payment Gateway
-
-This is a TheVaultApp Payment Gateway for WooCommerce.
+# WooCommerce TheVaultApp Checkout Payment Gateway
 
 Requires at least: 4.4
 Tested up to: 5.0.3
