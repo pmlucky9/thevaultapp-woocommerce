@@ -1,4 +1,4 @@
-﻿# WooCommerce TheVaultApp Checkout Payment Gateway
+# WooCommerce TheVaultApp Checkout Payment Gateway
 Requires at least: 4.4
 Tested up to: 5.0.3
 License: GPLv3
