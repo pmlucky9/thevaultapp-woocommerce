@@ -121,8 +121,3 @@ function send_vault_order($order, $url, $token, $store)
     
     return $result;	
 }
-
-/*
-add_filter('woocommerce_order_button_html', function(){
-    return '<button class="new_submit button">Place Order</button>';
-});*/
