@@ -13,7 +13,7 @@ class WC_Gateway_TheVaultApp_Gateway_Loader {
 	 * Constructor.
 	 */
 	public function __construct() {
-		$includes_path = wc_gateway_thevaultapp()->includes_path;
+		$includes_path = WCGatewayThevaultapp()->includes_path;
 		
 		require_once( $includes_path . 'class-wc-gateway-thevaultapp-gateway.php' );
 		add_filter( 'woocommerce_payment_gateways', array( $this, 'payment_gateways' ) );

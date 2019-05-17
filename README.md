@@ -1,5 +1,6 @@
 # WooCommerce TheVaultApp Checkout Payment Gateway
 
+Author: Pmlucky9
 Requires at least: 4.4
 Tested up to: 5.0.3
 License: GPLv3

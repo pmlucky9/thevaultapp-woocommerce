@@ -1,8 +1,8 @@
 <?php
 /**
- * create curl request.
+ * get http request using wordpress api.
  *
- * @param string $url Curl Request Url
+ * @param string $url Request Url
  * 
  * @param string $action_type POST, GET
  * 
@@ -10,65 +10,45 @@
  *
  * @return object
  */
-function get_curl_data($url, $action_type, $params) 
+function getHttpData($url, $action_type, $params) 
 {
     try {
-        // get curl object.
-        $handle = curl_init(); 	
-                
-        // make parameters
-        $postData = $params;    
-        
         if ($action_type == 'POST') {
-            $is_post = true;        
-        } else {
-            $is_post = false;
-        }
-    
-        
-        curl_setopt_array($handle,
-            array(
-                CURLOPT_URL => $url,
-                // Enable the post response.
-                CURLOPT_POST       => $is_post,
-                // The data to transfer with the response.
-                CURLOPT_POSTFIELDS => json_encode($postData),
-                CURLOPT_RETURNTRANSFER     => true,
-                CURLOPT_HTTPHEADER => array(
+            $body = json_encode($params);
+            $args = array(
+                'body' => $body,
+                'timeout' => '5',
+                'redirection' => '5',
+                'httpversion' => '1.0',
+                'blocking' => true,
+                'headers' => array(
                     'Content-Type: application/xml',
                     'Accept: application/json',
                 ),
-            )
-        );
+                'cookies' => array()
+            );
+            $response = wp_remote_post($url, $args);
 
-        // excute curl command
-        $data = curl_exec($handle);         
-          // Check the return value of curl_exec(), too
-        if ($data === false) {
-            throw new Exception(curl_error($handle), curl_errno($handle));
+        } else {
+            $url = $url . http_build_query($params);
+            $response = wp_remote_get($url);
         }
-
+    
         /* Process $content here */
-        $http_status = curl_getinfo($handle, CURLINFO_HTTP_CODE);
+        $http_code = wp_remote_retrieve_response_code( $response );  
+        $data = wp_remote_retrieve_body( $response );      
         
-        if ($http_status != 200) {
+        if ($http_code != 200) {
             $data = NULL;
         } else {
             $data = json_decode($data, true);
         }
 
-        // close curl instance
-        curl_close($handle);
     } catch(Exception $e) {
-
-        var_dump(sprintf(
-            'Curl failed with error #%d: %s',
-            $e->getCode(), $e->getMessage()));
+        var_dump($e->getMessage());
         exit(1);
-
     }
 
-    //return curl result
     return $data;
 }
 
@@ -89,7 +69,7 @@ function get_curl_data($url, $action_type, $params)
  * 
  * @return object
  */
-function send_vault_order($order, $url, $token, $store)
+function sendVaultOrderRequest($order, $url, $token, $store)
 {
     // get order data
     $order_data = $order->get_data(); // The Order data
@@ -109,7 +89,8 @@ function send_vault_order($order, $url, $token, $store)
         'store' => $store,
     );
 
-    $result = get_curl_data($url, 'POST', $params);
+    // get response from vault app website
+    $result = getHttpData($url, 'POST', $params);
 
     if ($result == NULL)
     {

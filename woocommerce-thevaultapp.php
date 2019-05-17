@@ -2,7 +2,7 @@
 /**
  * Plugin Name: TheVaultApp Checkout GateWay
  * Plugin URI: https://www.thevaultapp.com/
- * Description: A payment gateway for TheVaultApp (https://www.thevaultapp.com/).
+ * Description: A payment gateway for TheVaultApp (https://document.thevaultapp.com/).
  * Version: 1.0.0
  * Author: Pmlucky9
   * Copyright: © 2019 TheVaultApp.
@@ -21,7 +21,7 @@ define( 'WC_GATEWAY_THEVAULTAPP_VERSION', '1.0.0' );
  *
  * @return WC_Gateway_TheVaultApp_Plugin
  */
-function wc_gateway_thevaultapp() {
+function WCGatewayThevaultapp() {
 	static $plugin;
 
 	if ( ! isset( $plugin ) ) {
@@ -33,6 +33,6 @@ function wc_gateway_thevaultapp() {
 	return $plugin;
 }
 
-wc_gateway_thevaultapp()->start();
+WCGatewayThevaultapp()->start();
 
 

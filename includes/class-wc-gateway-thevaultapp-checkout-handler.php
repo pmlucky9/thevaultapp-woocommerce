@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-$includes_path = wc_gateway_thevaultapp()->includes_path;
+$includes_path = WCGatewayThevaultapp()->includes_path;
 
 // TODO: Use spl autoload to require on-demand maybe?
 
@@ -37,8 +37,8 @@ class WC_Gateway_TheVaultApp_Checkout_Handler {
 	 */
 	public function enqueue_scripts() {	
 		if (is_checkout()) {
-			wp_enqueue_style( 'wc-gateway-thevaultapp-frontend-checkout', wc_gateway_thevaultapp()->plugin_url . 'assets/css/wc-gateway-thevaultapp-frontend-checkout.css' );
-			wp_enqueue_script( 'wc-gateway-thevaultapp-frontend-in-checkout', wc_gateway_thevaultapp()->plugin_url . 'assets/js/wc-gateway-thevaultapp-checkout.js', array( 'jquery' ), wc_gateway_thevaultapp()->version, true );
+			wp_enqueue_style( 'wc-gateway-thevaultapp-frontend-checkout', WCGatewayThevaultapp()->plugin_url . 'assets/css/wc-gateway-thevaultapp-frontend-checkout.css' );
+			wp_enqueue_script( 'wc-gateway-thevaultapp-frontend-in-checkout', WCGatewayThevaultapp()->plugin_url . 'assets/js/wc-gateway-thevaultapp-checkout.js', array( 'jquery' ), WCGatewayThevaultapp()->version, true );
 		}
 	}
 

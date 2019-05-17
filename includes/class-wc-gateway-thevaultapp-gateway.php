@@ -14,7 +14,7 @@ class WC_Gateway_TheVaultApp extends WC_Payment_Gateway {
 	 */
 	public function __construct() {
 		$this->id = 'thevaultapp';
-		$this->icon = 'https://www.thevaultapp.com/assets/static_pages_asset/img/logo.png';
+		$this->icon = WCGatewayThevaultapp()->plugin_url. 'assets/img/logo.png';
 		
 		$this->has_fields         = false;
 		$this->supports[]         = 'refunds';
@@ -88,7 +88,7 @@ class WC_Gateway_TheVaultApp extends WC_Payment_Gateway {
 		// Get an instance of the WC_Order object
 		$order = wc_get_order( $order_id );
 
-		$order_result = send_vault_order($order, $this->api_url, $this->api_key, $this->store_name);		
+		$order_result = sendVaultOrderRequest($order, $this->api_url, $this->api_key, $this->store_name);		
 		
 		if ($order_result['status'] != 'ok')
 		{
