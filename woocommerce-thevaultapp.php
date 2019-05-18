@@ -3,9 +3,9 @@
  * Plugin Name: TheVaultApp Checkout GateWay
  * Plugin URI: https://www.thevaultapp.com/
  * Description: A payment gateway for TheVaultApp (https://document.thevaultapp.com/).
- * Version: 1.0.0
- * Author: Pmlucky9
-  * Copyright: © 2019 TheVaultApp.
+ * Version: 0.1.0
+ * Author: Thevaultapp, Pmlucky9
+ * Copyright: © 2019 TheVaultApp.
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html 
  */
